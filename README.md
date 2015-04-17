@@ -6,15 +6,15 @@ This is a work in progress, not ready for production. Please check the TODO list
 
 ## Getting started
 
-### Node.js
+### With Browserify
 
 ```
 $ npm install --save animatesprite
 ```
 
 ```js
-var animateSprite = require('animatesprite');
-animateSprite.awesome(); // "awesome"
+var AnimateSprite = require('animatesprite');
+var animation = new AnimateSprite(document.getElementById('domWithSprite'));
 ```
 
 ### Browser
