@@ -9,5 +9,8 @@
   "undef": true,
   "boss": true,
   "eqnull": true,
-  "predef": ["exports"]
+  "quotmark": "single",
+  "indent": 4,
+  "browser": true,
+  "predef": ["exports", "console"]
 }

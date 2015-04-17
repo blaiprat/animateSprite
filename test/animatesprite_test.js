@@ -1,13 +1,14 @@
 'use strict';
-var animateSprite = require('../src/animatesprite.js');
+var AnimateSprite = require('../src/animatesprite.js');
 
-exports['awesome'] = {
-  setUp: function (done) {
-    done();
-  },
-  'no args': function(test) {
-    test.expect(1);
-    test.equal(animateSprite.awesome(), 'awesome', 'should be awesome');
-    test.done();
-  }
+exports['AnimateSprite'] = {
+    setUp: function (done) {
+        done();
+    },
+    'no args': function(test) {
+        var animation = new AnimateSprite('a', {fps: 6});
+        test.expect(1);
+        test.equal(animation, typeof object, 'should be awesome');
+        test.done();
+    }
 };

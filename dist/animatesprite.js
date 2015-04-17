@@ -1,10 +1,5 @@
-/*
- * animateSprite
- * http://blaiprat.github.io/animateSprite/
- *
- * Copyright (c) 2015 Blai Pratdesaba
- * Licensed under the MIT license.
- */
+/*! animatesprite - v0.0.0 - 2015-04-18
+* Copyright (c) 2015 Blai Pratdesaba; Licensed MIT */
 (function (exports) {
     'use strict';
 
