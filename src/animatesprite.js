@@ -120,7 +120,6 @@
                 column = animationStep % _settings.columns;
 
             var newStyle = (-_settings.width * column) + 'px ' + (-_settings.height * row) + 'px';
-            console.log('newStyle', newStyle, _settings.width, _settings.columns);
             DOMObject.style.backgroundPosition = newStyle;
 
             return animationStep;
@@ -142,7 +141,6 @@
         };
 
         var play = function (animationName) {
-            console.log('playing', animationName);
             if (animationName) {
                 stop();
                 if (_settings.animations[animationName] !== currentAnimation) {
