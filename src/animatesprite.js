@@ -158,6 +158,11 @@
 
         var init = function(){
 
+            // Unwrap jQuery object
+            if (DOMObject.jquery) {
+                DOMObject = DOMObject[0];
+            }
+
             discoverColumns(function (width, height) {
                 // getting amount of columns
                 _settings.columns = Math.round(width / _settings.width);
