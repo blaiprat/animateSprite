@@ -14,14 +14,21 @@
             }
 
             .animation-2 {
-                background: url(img/ramonaflowers_multiple.png);
+                background: url(img/ramonaflowers_multiple_numbered.png);
                 width: 125px;
                 height: 157px;
+            }
+
+            #spriteManoClick {
+                width: 150px;
+                height: 150px;
+                background-image: url(img/sprite-mano-click.png);
+                background-color: #889;
             }
         </style>
     </head>
     <body>
-
+        <div id="spriteManoClick"></div>
         <div id='ramona' class="animation animation-2"></div>
 
         <button id="left">Go Left</button>
@@ -49,6 +56,15 @@ var animation = new AnimateSprite(document.getElementById('ramona'), {
     complete: function(){
         // use complete only when you set animations with 'loop: false'
         alert("animation End");
+    }
+});
+
+
+var handSprite = new AnimateSprite(document.getElementById('spriteManoClick'), {
+    fps: 30,
+    loop: true,
+    animations:{
+        clicker:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59]
     }
 });
 console.log('animation', animation);

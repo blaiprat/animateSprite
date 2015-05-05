@@ -70,7 +70,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'jshint',
-    'nodeunit',
+    // 'nodeunit',
     'concat',
     'uglify'
   ]);
