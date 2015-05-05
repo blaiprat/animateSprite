@@ -1,9 +1,11 @@
 {
   "name": "animatesprite",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Sprite animations made simple",
   "keywords": [
-    ""
+    "animations",
+    "animate sprite",
+    "sprite animations"
   ],
   "author": {
     "name": "Blai Pratdesaba",
