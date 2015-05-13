@@ -39,7 +39,7 @@
     }());
 
 
-    exports.AnimateSprite = function (DOMObject, initialSettings) {
+    exports = function (DOMObject, initialSettings) {
         var self = this;
 
         var _settings = {
