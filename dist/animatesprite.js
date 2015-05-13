@@ -1,4 +1,4 @@
-/*! animatesprite - v0.2.0 - 2015-05-13
+/*! animatesprite - v0.2.1 - 2015-05-13
 * Copyright (c) 2015 Blai Pratdesaba; Licensed MIT */
 (function () {
 
@@ -209,12 +209,10 @@
                 // getting amount of columns
                 _settings.columns = Math.round(width / _settings.width);
                 // if totalframes are not specified
-                console.log('_settings.totalFrames', _settings.totalFrames);
                 if (_settings.totalFrames === undefined) {
                     // total frames is columns times rows
                     var rows = Math.round(height / _settings.height);
                     _settings.totalFrames = _settings.columns * rows;
-                    console.info('_settings.totalFrames', _settings.totalFrames);
                 }
                 if (_settings.autoplay) {
                     controlTimer();
