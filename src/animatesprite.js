@@ -22,7 +22,7 @@
         for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
             window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
             window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] ||
-                                        window[vendors[x]+'CancelRequestAnimationFrame'];
+            window[vendors[x]+'CancelRequestAnimationFrame'];
         }
 
         if (!window.requestAnimationFrame) {
@@ -30,7 +30,7 @@
                 var currTime = new Date().getTime();
                 var timeToCall = Math.max(0, 16 - (currTime - lastTime));
                 var id = window.setTimeout(function() { callback(currTime + timeToCall); },
-                  timeToCall);
+                timeToCall);
                 lastTime = currTime + timeToCall;
                 return id;
             };
@@ -45,7 +45,9 @@
 
 
     var AnimateSprite = function (DOMObject, initialSettings) {
-        var self = this;
+
+        var self = this,
+            isPlaying = false;
 
         var _settings = {
             width:          DOMObject.offsetWidth,
@@ -90,7 +92,7 @@
 
 
         var discoverColumns = function (cb) {
-            var imageSrc = getComputedStyle(DOMObject)['backgroundImage'].replace(/url\((['"])?(.*?)\1\)/gi, '$2');
+            var imageSrc = getComputedStyle(DOMObject).backgroundImage.replace(/url\((['"])?(.*?)\1\)/gi, '$2');
             var image = new Image();
 
             image.onload = function () {
@@ -104,53 +106,6 @@
         };
 
 
-        var controlTimer = function () {
-            // duration overrides fps
-            var speed = 1000 / _settings.fps;
-            _interval = setTimeout(function () {
-                controlAnimation();
-            }, speed);
-
-        };
-
-
-        var controlAnimation = function(){
-
-            var checkLoop = function (animationStep, finalFrame) {
-                animationStep++;
-                if (animationStep >= finalFrame) {
-                    if (_settings.loop === true) {
-                        animationStep = 0;
-                        controlTimer();
-                    } else {
-                        _settings.complete();
-                    }
-                } else {
-                    controlTimer();
-                }
-                return animationStep;
-            };
-
-            if (_settings.animations === undefined) {
-                // $this.animateSprite('frame', this.animationStep);
-                animationStep = checkLoop.call(this, animationStep, _settings.totalFrames);
-
-            } else {
-                if (currentAnimation === undefined) {
-                    for (var k in _settings.animations) {
-                        currentAnimation = _settings.animations[k];
-                        break;
-                    }
-                }
-
-                animationFrame = currentAnimation[animationStep];
-                window.requestAnimationFrame(function(){
-                    setFrame(animationFrame);
-                    animationStep = checkLoop.call(this, animationStep, currentAnimation.length);
-                });
-
-            }
-        };
 
         var setFrame = function(newFrame){
             newFrame = newFrame || animationStep;
@@ -164,9 +119,60 @@
             return animationStep;
         };
 
+        var controlAnimation = function(){
+            var checkLoop = function (finalFrame) {
+                if (animationStep >= finalFrame - 1) {
+                    if (_settings.loop === true) {
+                        animationStep = 0;
+                        controlTimer();
+                    } else {
+                        _settings.complete();
+                        isPlaying = false;
+                    }
+                } else {
+                    controlTimer();
+                }
+                return animationStep;
+            };
+
+            if (_settings.animations === undefined) {
+                animationStep++;
+                setFrame(animationStep);
+                checkLoop.call(this, _settings.totalFrames);
+
+            } else {
+                if (currentAnimation === undefined) {
+                    for (var k in _settings.animations) {
+                        currentAnimation = _settings.animations[k];
+                        break;
+                    }
+                }
+
+                animationFrame = currentAnimation[animationStep];
+                setFrame(animationFrame);
+                animationStep++;
+                checkLoop.call(this, currentAnimation.length);
+
+
+            }
+        };
+
+        var controlTimer = function () {
+            // duration overrides fps
+            var speed = 1000 / (_settings.fps + 1);
+            if (speed < 17) {
+                window.requestAnimationFrame(controlAnimation);
+            } else {
+                _interval = setTimeout(controlAnimation, speed);
+            }
+        };
+
+
+
 
         var stop = function () {
             clearTimeout(_interval);
+            isPlaying = false;
         };
 
         var resume = function () {
@@ -180,6 +186,9 @@
         };
 
         var play = function (animationName) {
+
+            if (isPlaying) { return; }
+            // TODO: Check if is playing
             if (animationName) {
                 stop();
                 if (_settings.animations[animationName] !== currentAnimation) {
@@ -190,6 +199,7 @@
             } else {
                 controlTimer();
             }
+            isPlaying = true;
         };
 
 
@@ -204,13 +214,16 @@
                 // getting amount of columns
                 _settings.columns = Math.round(width / _settings.width);
                 // if totalframes are not specified
-                if (!_settings.totalFrames) {
+                console.log('_settings.totalFrames', _settings.totalFrames);
+                if (_settings.totalFrames === undefined) {
                     // total frames is columns times rows
                     var rows = Math.round(height / _settings.height);
                     _settings.totalFrames = _settings.columns * rows;
+                    console.info('_settings.totalFrames', _settings.totalFrames);
                 }
                 if (_settings.autoplay) {
                     controlTimer();
+                    isPlaying = true;
                 }
             });
         };
