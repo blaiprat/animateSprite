@@ -1,6 +1,6 @@
-/*! animatesprite - v0.1.1 - 2015-05-13
+/*! animatesprite - v0.1.3 - 2015-05-13
 * Copyright (c) 2015 Blai Pratdesaba; Licensed MIT */
-(function (exports) {
+(function () {
 
     'use strict';
 
@@ -39,7 +39,7 @@
     }());
 
 
-    exports = function (DOMObject, initialSettings) {
+    var AnimateSprite = function (DOMObject, initialSettings) {
         var self = this;
 
         var _settings = {
@@ -236,4 +236,14 @@
     };
 
 
-}(typeof exports === 'object' && exports || this));
+    /* global define:true module:true window: true */
+    if (typeof define === 'function' && define['amd']) {
+        define(function() { return AnimateSprite; });
+    } else if (typeof module !== 'undefined' && module['exports']) {
+        module['exports'] = AnimateSprite;
+    } else if (typeof this !== 'undefined') {
+        this['AnimateSprite'] = AnimateSprite;
+    }
+
+
+}(this));

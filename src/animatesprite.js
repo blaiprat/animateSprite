@@ -5,7 +5,7 @@
  * Copyright (c) 2015 Blai Pratdesaba
  * Licensed under the MIT license.
  */
-(function (exports) {
+(function () {
 
     'use strict';
 
@@ -44,7 +44,7 @@
     }());
 
 
-    exports.AnimateSprite = function (DOMObject, initialSettings) {
+    var AnimateSprite = function (DOMObject, initialSettings) {
         var self = this;
 
         var _settings = {
@@ -241,4 +241,14 @@
     };
 
 
-}(typeof exports === 'object' && exports || this));
+    /* global define:true module:true window: true */
+    if (typeof define === 'function' && define['amd']) {
+        define(function() { return AnimateSprite; });
+    } else if (typeof module !== 'undefined' && module['exports']) {
+        module['exports'] = AnimateSprite;
+    } else if (typeof this !== 'undefined') {
+        this['AnimateSprite'] = AnimateSprite;
+    }
+
+
+}(this));
