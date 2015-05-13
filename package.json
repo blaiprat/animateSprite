@@ -1,6 +1,6 @@
 {
   "name": "animatesprite",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Sprite animations made simple",
   "keywords": [
     "animations",
@@ -12,6 +12,7 @@
     "email": "hello@blaipratdesaba.com",
     "url": "http://www.blaipratdesaba.com"
   },
+  "main": "dist/animatesprite.js",
   "repository": "https://github.com/blaiprat/animatesprite",
   "license": "MIT",
   "scripts": {

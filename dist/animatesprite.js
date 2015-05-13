@@ -1,4 +1,4 @@
-/*! animatesprite - v0.1.0 - 2015-05-05
+/*! animatesprite - v0.1.1 - 2015-05-13
 * Copyright (c) 2015 Blai Pratdesaba; Licensed MIT */
 (function (exports) {
 
